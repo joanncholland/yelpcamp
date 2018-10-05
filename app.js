@@ -2,19 +2,14 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var Campground = require('./models/campground');
+var seedDB = require('./seeds.js');
+
+seedDB();
 
 mongoose.connect('mongodb://localhost/yelpcamp', {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
-
-// SCHEMA SETUP
-var campgroundSchema = new mongoose.Schema({
-  name: String,
-  image: String,
-  description: String
-});
-
-var Campground = mongoose.model("Campground", campgroundSchema);
 
 // Campground.create(
 //   {
@@ -86,11 +81,3 @@ app.get('/campgrounds/:id', function(req,res){
 app.listen(3000, function(){
   console.log("Server has started...");
 });
-
-// RESTFUL ROUTES
-// name    url       verb    desc.
-// ===========================================
-// INDEX   /dogs     GET     Display a list of all dogs
-// NEW     /dogs/new GET     Displays form to make a new dog
-// CREATE  /dogs     POST    Add new dog to DB
-// SHOW    /dogs/:id GET     Shows info about one dog
