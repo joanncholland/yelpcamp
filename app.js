@@ -17,8 +17,8 @@ var Campground = mongoose.model("Campground", campgroundSchema);
 
 // Campground.create(
 //   {
-//     name: 'Salmon Creek',
-//     image: "https://pixabay.com/get/e83db40e28fd033ed1584d05fb1d4e97e07ee3d21cac104496f8c470aee9bdb9_340.jpg"
+//     name: 'Granite Hills',
+//     image: "https://farm3.staticflickr.com/2116/2164766085_0229ac3f08.jpg"
 //   }, function(err, campground){
 //     if(err){
 //       console.log(err);
@@ -28,33 +28,19 @@ var Campground = mongoose.model("Campground", campgroundSchema);
 //     }
 //   });
 
-// var campgrounds = [
-//   {name: 'Salmon Creek', image: "https://pixabay.com/get/e83db40e28fd033ed1584d05fb1d4e97e07ee3d21cac104496f8c470aee9bdb9_340.jpg"},
-//   {name: 'Granite Hills', image: "https://pixabay.com/get/e837b1072af4003ed1584d05fb1d4e97e07ee3d21cac104496f8c470aee9bdb9_340.jpg"},
-//   {name: "Mountain Goats' Rest", image: "https://farm1.staticflickr.com/82/225912054_690e32830d.jpg"},
-//   {name: 'Salmon Creek', image: "https://pixabay.com/get/e83db40e28fd033ed1584d05fb1d4e97e07ee3d21cac104496f8c470aee9bdb9_340.jpg"},
-//   {name: 'Granite Hills', image: "https://pixabay.com/get/e837b1072af4003ed1584d05fb1d4e97e07ee3d21cac104496f8c470aee9bdb9_340.jpg"},
-//   {name: "Mountain Goats' Rest", image: "https://farm1.staticflickr.com/82/225912054_690e32830d.jpg"},
-//   {name: 'Salmon Creek', image: "https://pixabay.com/get/e83db40e28fd033ed1584d05fb1d4e97e07ee3d21cac104496f8c470aee9bdb9_340.jpg"},
-//   {name: 'Granite Hills', image: "https://pixabay.com/get/e837b1072af4003ed1584d05fb1d4e97e07ee3d21cac104496f8c470aee9bdb9_340.jpg"},
-//   {name: "Mountain Goats' Rest", image: "https://farm1.staticflickr.com/82/225912054_690e32830d.jpg"}
-// ];
-
 app.get('/', function(req,res){
   res.render('landing');
 });
 
 app.get('/campgrounds', function(req,res){
   // Get all campgrounds from db
-  Campground.find({}, function(err, campgrounds){
+  Campground.find({}, function(err, allCampgrounds){
     if(err){
       console.log(err);
     } else {
-      res.render('campgrounds', {campgrounds: campgrounds});
+      res.render('campgrounds', {campgrounds: allCampgrounds});
     }
   });
-  res.render('campgrounds');
-  // res.send(Campground.find());
 });
 
 app.post('/campgrounds', function(req,res){
@@ -68,11 +54,10 @@ app.post('/campgrounds', function(req,res){
     if(err){
       console.log(err);
     } else {
+      console.log(newlyCreated);
       res.redirect('/campgrounds');
     }
   });
-  // redirect back to campgrounds page
-  res.redirect('/campgrounds');
 });
 
 app.get('/campgrounds/new', function(req,res){
