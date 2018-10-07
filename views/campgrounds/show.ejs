@@ -2,7 +2,7 @@
 
 <h1>Show page </h1>
 
-<p><%= campground.name %></p>
+<p><%= campground.name %> created by <%= campground.author.username %></p>
 
 <img src="<%= campground.image %>" alt="Campground Image">
 
@@ -13,7 +13,7 @@
 </p>
 
 <% campground.comments.forEach(function(comment){ %>
-  <p><%=comment.author%> - <%=comment.text%></p>
+  <p> <strong><%=comment.author.username%></strong> - <%=comment.text%></p>
 <% }); %>
 
 <% include ../partials/footer %>
